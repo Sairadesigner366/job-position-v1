@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Positions — The Pharmacy Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<style>
+/* The Pharmacy Hub — Open Positions
+   Typography: Söhne (licensed, local) with Inter Tight as web fallback */
+
+:root{
+  --paper:#ffffff; --mineral:#F5F6F9;
+  --ink:#101317; --ink-2:#3A4048; --ink-3:#6B7280;
+  --navy:#0E1E3D; --navy-deep:#1C2A63; --sky:#9CC6E5;
+  --action:#2036C0; --action-hover:#17289A; --blue:#1F5FE0;
+  --line:rgba(14,30,61,0.09);
+  --radius-btn:8px; --radius-card:16px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --sans:'Soehne','Inter Tight',ui-sans-serif,system-ui,sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);font-weight:400;color:var(--ink);background:var(--mineral);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block}
+a{color:var(--blue);text-decoration:none}
+a:hover{color:#004BB3}
+h1,h2,h3,h4{font-family:var(--sans);font-weight:500;letter-spacing:-0.018em}
+input,select,button{font-family:inherit}
+
+.wrap{width:100%;overflow-x:hidden;background:var(--paper)}
+.container{max-width:1280px;margin:0 auto}
+.label{font-size:.8125rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- header ---------- */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:50}
+.header-center{display:flex;justify-content:center;padding:12px 16px 0}
+.header-width{width:100%;max-width:1280px;transition:max-width .4s var(--ease)}
+.header-bar{display:flex;align-items:center;justify-content:space-between;height:64px;border-radius:16px;padding:0 24px;background:transparent;border:1px solid transparent;transition:all .4s var(--ease)}
+.brand{display:flex;flex-shrink:0;align-items:center;padding-left:6px}
+.brand img{height:25px;width:auto}
+.brand .logo-pill{display:none;height:36px}
+.nav-links{display:flex;align-items:center}
+.nav-links a{padding:8px 14px;white-space:nowrap;font-size:15px;font-weight:500;color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(9,20,42,.6);transition:color .3s}
+.nav-links a:hover,.nav-links a.is-active{color:#fff}
+.nav-links a.is-active{font-weight:600}
+.btn-partner{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;background:var(--action);color:#fff;font-weight:500;font-size:15px;padding:9px 22px;border-radius:var(--radius-btn);transition:all .3s var(--ease)}
+.btn-partner:hover{background:var(--action-hover);color:#fff}
+
+/* scrolled: frosted glass bar */
+.site-header.is-scrolled .header-bar{
+  background:rgba(255,255,255,.58);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(16,19,23,.12);
+}
+.site-header.is-scrolled .brand .logo-light{display:none}
+.site-header.is-scrolled .brand .logo-navy{display:block}
+.site-header.is-scrolled .nav-links a{color:var(--ink-2);text-shadow:none}
+.site-header.is-scrolled .nav-links a:hover,.site-header.is-scrolled .nav-links a.is-active{color:var(--ink)}
+.brand .logo-navy{display:none}
+
+/* actively scrolling: compact pill */
+.site-header.is-pill .header-width{max-width:660px}
+.site-header.is-pill .header-bar{height:48px;border-radius:999px;padding:0 10px}
+.site-header.is-pill .brand .logo-light,.site-header.is-pill .brand .logo-navy{display:none}
+.site-header.is-pill .brand .logo-pill{display:block}
+.site-header.is-pill .nav-links a{padding:8px 10px;font-size:14px}
+.site-header.is-pill .btn-partner{font-size:14px;padding:7px 16px;border-radius:999px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--navy);overflow:hidden;padding-bottom:58px}
+.hero-media{position:relative}
+.hero-media > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;z-index:0}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(9,20,42,.95) 0%,rgba(9,20,42,.88) 30%,rgba(9,20,42,.5) 54%,rgba(9,20,42,.1) 74%,rgba(9,20,42,0) 90%)}
+.hero-body{position:relative;z-index:2;padding:170px 44px 88px}
+.rule{width:44px;height:1px;background:var(--sky);margin:0 0 22px}
+.eyebrow{font-size:.8125rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sky);margin-bottom:18px}
+.hero-body h1{font-size:clamp(2.75rem,1rem + 5vw,5.5rem);line-height:1.02;letter-spacing:-.022em;color:#fff;margin-bottom:20px;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.hero-lede{font-size:1.0625rem;line-height:1.6;color:#DCE6F5;max-width:440px;margin:0 0 30px}
+.hero-stats{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:600;color:#fff}
+.hero-stats > span{display:inline-flex;align-items:center;gap:9px}
+.dot-live{width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,.25)}
+.divider-v{width:1px;height:16px;background:rgba(255,255,255,.25)}
+
+/* ---------- filter toolbar ---------- */
+.filter-wrap{max-width:1280px;margin:-46px auto 0;position:relative;z-index:3;padding:0 44px}
+.filter{background:#fff;border-radius:var(--radius-card);box-shadow:0 24px 54px rgba(14,30,61,.22);border:1px solid rgba(14,30,61,.06);padding:16px;display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:14px;align-items:center}
+.field{display:flex;align-items:center;gap:11px;background:var(--mineral);border:1px solid rgba(14,30,61,.10);border-radius:11px;padding:14px 16px}
+.field input{flex:1;background:transparent;border:none;outline:none;color:var(--navy);font-size:14px}
+.field input::placeholder{color:#9AA3B2}
+.select-wrap{position:relative}
+.select-wrap select{appearance:none;-webkit-appearance:none;width:100%;font-size:14px;font-weight:500;color:var(--navy);background:var(--mineral);border:1px solid rgba(14,30,61,.10);border-radius:11px;padding:15px 40px 15px 16px;cursor:pointer}
+.select-wrap svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+
+/* ---------- job list ---------- */
+.results{background:var(--mineral);padding:48px 44px 56px}
+.results-head{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+.results-head h2{font-size:2rem;line-height:1.08;color:var(--navy)}
+.empty-state p{ont-size: 1.0625rem;
+    line-height: 1.6;
+    color: #000;
+    max-width: 460px;
+    margin: 0 0 30px;}
+.job-list{display:flex;flex-direction:column;gap:16px}
+.job{display:flex;gap:22px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-card);padding:26px 30px;box-shadow:0 1px 2px rgba(14,30,61,.04);color:var(--navy);transition:box-shadow .25s var(--ease),border-color .25s var(--ease)}
+.job:hover{box-shadow:0 16px 34px rgba(14,30,61,.12);border-color:rgba(31,95,224,.35);color:var(--navy)}
+.job-mark{flex-shrink:0;width:56px;height:56px;border-radius:14px;background:#fff;border:1px solid rgba(14,30,61,.12);display:flex;align-items:center;justify-content:center}
+.job-mark img{width:30px;height:auto}
+.job-main{flex:1;min-width:0}
+.job-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.job h3{font-size:1.5rem;line-height:1.2;letter-spacing:-.01em;color:var(--navy);margin:0 0 10px}
+.chips{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font-size:13.5px}
+.chip{font-weight:600;border-radius:999px;padding:3px 11px}
+.chip-dept{color:var(--blue);background:rgba(31,95,224,.10)}
+.chip-onsite{color:var(--ink-2);background:rgba(14,30,61,.07)}
+.chip-new{color:#2E7D52;background:rgba(46,125,82,.12)}
+.job-meta{flex-shrink:0;display:flex;align-items:center;gap:22px}
+.job-loc{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--navy);white-space:nowrap}
+.btn-apply{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--action);border:1px solid rgba(32,54,192,.45);font-weight:600;font-size:14px;padding:9px 26px;border-radius:var(--radius-btn)}
+.empty{background:#fff;border:1px dashed rgba(14,30,61,.18);border-radius:var(--radius-card);padding:56px 24px;text-align:center;color:var(--ink-3);font-size:15px}
+
+/* ---------- CTA ---------- */
+.cta{position:relative;background:var(--navy);overflow:hidden;padding:60px 44px}
+.cta > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;z-index:0}
+.cta-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(14,30,61,.94) 0%,rgba(20,60,140,.88) 30%,rgba(31,95,224,.55) 52%,rgba(31,95,224,.12) 72%,rgba(31,95,224,0) 88%)}
+.cta-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto}
+.cta-col{max-width:560px}
+.cta h2{font-size:clamp(1.9rem,1.1rem + 2.3vw,3.25rem);line-height:1.08;color:#fff;margin:0 0 18px;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.cta p{font-size:1.0625rem;line-height:1.6;color:#DCE6F5;max-width:460px;margin:0 0 30px}
+.cta-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-light{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--navy);font-weight:600;font-size:15px;padding:15px 30px;border-radius:var(--radius-btn);transition:all .2s var(--ease)}
+.btn-light:hover{background:#EAF1FB;color:var(--navy);transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:15px;padding:15px 30px;border-radius:var(--radius-btn);border:1px solid rgba(255,255,255,.55);transition:all .2s var(--ease)}
+.btn-ghost:hover{background:rgba(255,255,255,.2);color:#fff;transform:translateY(-2px)}
+.eeo{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.28);font-size:13px;line-height:1.65;color:#EAF1FB;max-width:560px;text-shadow:0 1px 6px rgba(9,20,42,.55)}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--navy-deep);color:#fff}
+.footer-pad{max-width:1280px;margin:0 auto;padding:64px 40px 0}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1fr;gap:40px}
+.footer-brand img{width:144px}
+.footer-brand .label{margin:20px 0 0;color:rgba(255,255,255,.6)}
+.footer-brand p.about{margin:12px 0 0;max-width:26ch;font-size:14px;line-height:1.6;color:rgba(255,255,255,.55)}
+.footer-contact{margin-top:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.6;font-style:normal}
+.footer-contact a{color:rgba(255,255,255,.9)}
+.footer-contact a:hover{color:#fff}
+.footer-contact span{color:rgba(255,255,255,.75)}
+.footer-social{margin-top:20px;display:flex;gap:16px}
+.footer-social a{font-size:14px;color:rgba(255,255,255,.85);text-underline-offset:4px}
+.footer-social a:hover{color:#fff;text-decoration:underline}
+.footer-col h2{font-size:.8125rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);margin:0}
+.footer-col div{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.footer-col a{font-size:14.5px;color:rgba(255,255,255,.85)}
+.footer-col a:hover{color:#fff}
+.footer-bottom{margin-top:48px;border-top:1px solid rgba(255,255,255,.15);padding:32px 0 56px}
+.badges{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.badges span,.badges a{display:inline-flex;height:56px;align-items:center;border-radius:8px;background:#fff;padding:0 16px}
+.badges img{height:36px;width:auto}
+.badges a img{height:44px}
+.legal{margin-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.75)}
+.legal-links{display:flex;flex-wrap:wrap;align-items:center;column-gap:20px;row-gap:8px}
+.legal-links a{color:rgba(255,255,255,.78)}
+.legal-links a:hover{color:#fff}
+.motion-switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.motion-switch input{width:14px;height:14px;accent-color:var(--sky)}
+.marquee{overflow:hidden;border-top:1px solid rgba(255,255,255,.1)}
+.marquee-track{display:flex;width:max-content;align-items:center;padding:32px 0;animation:marquee 60s linear infinite}
+.marquee-track img{height:36px;width:auto;margin-right:96px;opacity:.11;user-select:none;pointer-events:none}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+:root[data-motion="reduce"] .marquee-track{animation-play-state:paused}
+
+/* ---------- responsive ---------- */
+@media (max-width:1023px){ .nav-links{display:none} }
+@media (max-width:900px){
+  .hero-body{padding:110px 24px 64px}
+  .filter-wrap{padding:0 24px}
+  .filter{grid-template-columns:1fr}
+  .results{padding:40px 24px 48px}
+  .cta{padding:48px 24px}
+  .footer-pad{padding:48px 24px 0}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .job-row{flex-direction:column}
+  .job-meta{width:100%;justify-content:space-between}
+}
+@media (max-width:560px){
+  .hero-stats{flex-wrap:wrap;row-gap:10px}
+  .footer-grid{grid-template-columns:1fr}
+  .job{flex-direction:column;gap:16px;padding:20px}
+  .job-meta{flex-wrap:wrap;gap:12px}
+}
+@media (prefers-reduced-motion:reduce){ .marquee-track{animation:none} }
+
+</style>
+<body>
+<div class="wrap">
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-center">
+      <div class="header-width">
+        <div class="header-bar">
+          <a class="brand" href="https://www.thepharmacyhub.com" target="_blank" rel="noopener noreferrer" aria-label="The Pharmacy Hub, home">
+            <img class="logo-light" src="assets/logo.png" alt="">
+            <img class="logo-navy" src="assets/logo-navy.png" alt="">
+            <img class="logo-pill" src="assets/logo-shell-dark.png" alt="">
+          </a>
+          <nav class="nav-links" aria-label="Primary">
+            <a href="https://www.thepharmacyhub.com/platform" target="_blank" rel="noopener noreferrer">Platform</a>
+            <a href="https://www.thepharmacyhub.com/solutions" target="_blank" rel="noopener noreferrer">Who We Serve</a>
+            <a href="https://www.thepharmacyhub.com/developers" target="_blank" rel="noopener noreferrer">Developers</a>
+            <a class="is-active" href="https://www.thepharmacyhub.com/company" target="_blank" rel="noopener noreferrer">Company</a>
+          </nav>
+          <div>
+            <a class="btn-partner" href="https://www.thepharmacyhub.com/partner-with-us" target="_blank" rel="noopener noreferrer">Partner with us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-media">
+      <img src="assets/hero.png" alt="">
+      <div class="hero-scrim"></div>
+    <section class="hero-body">
+    <div class="container">
+        <div class="rule"></div>
+        <div class="eyebrow">Careers · We're Hiring</div>
+        <h1>Open Positions</h1>
+        <p class="hero-lede">
+            Explore live roles across our Miami Gardens and Davie facilities and help scale modern healthcare.
+        </p>
+
+        <div class="hero-stats">
+            <span>
+                <span class="dot-live"></span>
+                <span id="openRoles"></span> open roles
+            </span>
+
+            <span class="divider-v"></span>
+
+            <span>
+                <span id="totalLocations"></span> locations
+            </span>
+
+            <span class="divider-v"></span>
+
+            <span>On-site</span>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <div class="filter-wrap">
+      <div class="filter">
+        <div class="field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <input id="q" type="search" placeholder="Search roles or keywords…" aria-label="Search roles">
+        </div>
+        <div class="select-wrap">
+          <select id="dept" aria-label="Filter by department">
+           
+          </select>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+        </div>
+        <div class="select-wrap">
+          <select id="office" aria-label="Filter by office">
+            
+          </select>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results">
+    <div class="container">
+      <div class="results-head">
+        <h2><span id="count"></span> Jobs results</h2>
+      </div>
+<div id="empty" hidden class="empty-state">
+    <h2>There are no jobs that fit these filter criteria</h2>
+    <p>Please change filters to view other jobs.</p>
+</div>     
+	 <div class="job-list" id="jobList">
+       </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <img src="assets/cta.png" alt="">
+    <div class="cta-scrim"></div>
+    <div class="cta-inner">
+      <div class="cta-col">
+        <div class="rule" style="background:rgba(255,255,255,0.6)"></div>
+        <div class="eyebrow">Stay connected</div>
+        <h2>Don't see the right role yet?</h2>
+        <p>New positions open often. Create a job alert and we'll send matching roles at our Miami Gardens and Davie facilities straight to your inbox.</p>
+        <div class="cta-actions">
+          <a class="btn-light" href="https://my.greenhouse.io/users/sign_in?job_board=thepharmacyhub&source=job_alert_board" target="_blank" rel="noopener noreferrer">Create a Job Alert<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></a>
+          <a class="btn-ghost" href="https://careers.thepharmacyhub.com/" target="_blank" rel="noopener noreferrer">Life at The Pharmacy Hub</a>
+        </div>
+      </div>
+      <div class="eeo">The Pharmacy Hub is proud to be an Equal Opportunity employer. All qualified applicants are considered without regard to race, color, religion, sex, national origin, age, disability, or veteran status. We provide reasonable accommodations throughout the recruitment process — let your recruiter know if you need assistance.</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-pad">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="The Pharmacy Hub, National Rx Fulfillment Partner">
+          <p class="label">The National Rx Fulfillment Partner</p>
+          <p class="about">Pharmacy, fulfillment, logistics, and technology infrastructure for modern healthcare companies.</p>
+          <address class="footer-contact">
+            <a href="tel:+18889581382">(888) 958-1382</a>
+            <a href="mailto:info@thepharmacyhub.com">info@thepharmacyhub.com</a>
+            <span>2750 Bridge Way, Davie, FL 33314</span>
+            <span>15600 NW 15th Ave, Suite C, Miami Gardens, FL 33169</span>
+          </address>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/thepharmacyhub/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </div>
+        </div>
+        <nav class="footer-col" aria-label="Platform">
+          <h2>Platform</h2>
+          <div>
+            <a href="https://www.thepharmacyhub.com/services" target="_blank" rel="noopener noreferrer">Services</a>
+            <a href="https://www.thepharmacyhub.com/platform/fulfillment" target="_blank" rel="noopener noreferrer">Fulfillment</a>
+            <a href="https://www.thepharmacyhub.com/platform/fulfillment-plus" target="_blank" rel="noopener noreferrer">Fulfillment Plus</a>
+            <a href="https://www.thepharmacyhub.com/platform/compounding-rd" target="_blank" rel="noopener noreferrer">Compounding &amp; R&amp;D</a>
+            <a href="https://www.thepharmacyhub.com/bond-os" target="_blank" rel="noopener noreferrer">Bond OS</a>
+            <a href="https://www.thepharmacyhub.com/developers" target="_blank" rel="noopener noreferrer">Developers</a>
+          </div>
+        </nav>
+        <nav class="footer-col" aria-label="Who We Serve">
+          <h2>Who We Serve</h2>
+          <div>
+            <a href="https://www.thepharmacyhub.com/solutions/telehealth-platforms" target="_blank" rel="noopener noreferrer">Telehealth</a>
+            <a href="https://www.thepharmacyhub.com/solutions/specialty-pharma" target="_blank" rel="noopener noreferrer">Specialty pharma</a>
+            <a href="https://www.thepharmacyhub.com/solutions/pharma-manufacturers" target="_blank" rel="noopener noreferrer">Manufacturers</a>
+            <a href="https://www.thepharmacyhub.com/solutions/clinics" target="_blank" rel="noopener noreferrer">Clinics</a>
+            <a href="https://www.thepharmacyhub.com/solutions/payers-third-parties" target="_blank" rel="noopener noreferrer">Payers &amp; third parties</a>
+            <a href="https://www.thepharmacyhub.com/solutions/hybrid-models" target="_blank" rel="noopener noreferrer">Hybrid models</a>
+          </div>
+        </nav>
+        <nav class="footer-col" aria-label="Infrastructure">
+          <h2>Infrastructure</h2>
+          <div>
+            <a href="https://www.thepharmacyhub.com/platform/trust-coverage" target="_blank" rel="noopener noreferrer">Trust &amp; coverage</a>
+            <a href="https://www.thepharmacyhub.com/resources" target="_blank" rel="noopener noreferrer">Resources</a>
+            <a href="https://www.thepharmacyhub.com/investor-resources" target="_blank" rel="noopener noreferrer">Investor resources</a>
+          </div>
+        </nav>
+        <nav class="footer-col" aria-label="Company">
+          <h2>Company</h2>
+          <div>
+            <a href="https://www.thepharmacyhub.com/company" target="_blank" rel="noopener noreferrer">Company</a>
+            <a href="https://careers.thepharmacyhub.com/" target="_blank" rel="noopener noreferrer">Careers</a>
+            <a href="https://www.thepharmacyhub.com/partner-with-us" target="_blank" rel="noopener noreferrer">Partner with us</a>
+            <a href="https://www.thepharmacyhub.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="badges">
+          <span><img src="assets/badge-hipaa.png" alt="HIPAA Compliant" loading="lazy"></span>
+          <span><img src="assets/badge-surescripts.png" alt="Surescripts approved" loading="lazy"></span>
+          <a href="https://www.legitscript.com/websites/?checker_keywords=thepharmacyhub.com" target="_blank" rel="noopener noreferrer" title="Verify LegitScript Approval for www.thepharmacyhub.com"><img src="assets/badge-legitscript.png" alt="Verify LegitScript approval" loading="lazy"></a>
+        </div>
+        <div class="legal">
+          <div class="legal-links">
+            <a href="https://www.thepharmacyhub.com/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
+            <a href="https://www.thepharmacyhub.com/legal/terms" target="_blank" rel="noopener noreferrer">Terms</a>
+            <a href="https://www.thepharmacyhub.com/legal/hipaa" target="_blank" rel="noopener noreferrer">Notice of Privacy Practices</a>
+            <a href="https://www.thepharmacyhub.com/legal/sms-terms" target="_blank" rel="noopener noreferrer">SMS Terms</a>
+            <a href="https://www.thepharmacyhub.com/sms-consent" target="_blank" rel="noopener noreferrer">SMS Sign-Up</a>
+            <a href="https://www.thepharmacyhub.com/legal/accessibility" target="_blank" rel="noopener noreferrer">Accessibility</a>
+            <label class="motion-switch"><input type="checkbox" id="reduceMotion"> Reduce motion</label>
+          </div>
+          <p>© 2026 The Pharmacy Hub. Licensed pharmacy. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+        <img src="assets/logo.png" alt="">
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* Header scroll states: top → glass bar → compact pill while scrolling */
+(function () {
+  var header = document.getElementById('siteHeader');
+  var idle;
+  function onScroll() {
+    var scrolled = window.scrollY > 32;
+    header.classList.toggle('is-scrolled', scrolled);
+    if (document.documentElement.getAttribute('data-motion') === 'reduce') return;
+    if (scrolled) {
+      header.classList.add('is-pill');
+      clearTimeout(idle);
+      idle = setTimeout(function () { header.classList.remove('is-pill'); }, 340);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* Job filtering */
+(function () {
+  var q = document.getElementById('q');
+  var dept = document.getElementById('dept');
+  var office = document.getElementById('office');
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  var jobs = Array.prototype.slice.call(document.querySelectorAll('.job'));
+
+  function apply() {
+    var term = q.value.trim().toLowerCase();
+    var d = dept.value;
+    var o = office.value;
+    var shown = 0;
+    jobs.forEach(function (el) {
+      var ok = (!d || el.dataset.dept === d) &&
+               (!o || el.dataset.offices.split('|').indexOf(o) > -1) &&
+               (!term || el.dataset.search.indexOf(term) > -1);
+      el.hidden = !ok;
+      if (ok) shown++;
+    });
+    count.textContent = shown;
+    empty.hidden = shown !== 0;
+  }
+  [q, dept, office].forEach(function (el) { el.addEventListener('input', apply); });
+})();
+
+/* Reduce motion — WCAG 2.2.2 pause mechanism */
+(function () {
+  var box = document.getElementById('reduceMotion');
+  var stored = null;
+  try { stored = localStorage.getItem('tph-motion'); } catch (e) {}
+  var reduce = stored ? stored === 'reduce'
+    : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function set(v) {
+    document.documentElement.setAttribute('data-motion', v ? 'reduce' : 'full');
+    box.checked = v;
+    try { localStorage.setItem('tph-motion', v ? 'reduce' : 'full'); } catch (e) {}
+  }
+  set(reduce);
+  box.addEventListener('change', function (e) { set(e.target.checked); });
+})();
+
+const API_URL =
+  "https://boards-api.greenhouse.io/v1/boards/thepharmacyhub/jobs?content=true";
+
+const jobList = document.getElementById("jobList");
+const deptSelect = document.getElementById("dept");
+const officeSelect = document.getElementById("office");
+const searchInput = document.getElementById("q");
+const count = document.getElementById("count");
+const empty = document.getElementById("empty");
+const openRoles = document.getElementById("openRoles");
+const totalLocations = document.getElementById("totalLocations");
+
+let jobs = [];
+
+async function loadJobs() {
+    try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+		//console.log(data.jobs[0]);
+
+jobs = (data.jobs || []).map(job => ({
+    ...job,
+    isNew: isRecent(job.first_published || job.updated_at)
+}));		
+   const uniqueLocations = [...new Set(jobs.map(job => job.location?.name))];
+
+       // console.log("Unique Locations:");
+       // console.log(uniqueLocations);
+        // Update Open Roles
+        if (openRoles) {
+            openRoles.textContent = jobs.length;
+        }
+
+        // Update Total Locations
+// Update Total Locations
+if (totalLocations) {
+
+    const locations = new Set();
+
+    jobs.forEach(job => {
+
+        let location = (job.location?.name || "")
+            .trim()
+            .replace(/\s+/g, " ")
+            .replace(/,\s*fl$/i, "")
+            .replace(/,\s*florida$/i, "")
+            .replace(/,\s*united states$/i, "");
+
+        location.split("&").forEach(part => {
+
+            part = part.trim();
+
+            if (part) {
+                locations.add(part);
+            }
+
+        });
+
+    });
+
+   // console.log([...locations]); // Check final unique locations
+
+    totalLocations.textContent = locations.size;
+}
+
+        populateDepartments();
+        populateOffices();
+        renderJobs(jobs);
+
+    } catch (err) {
+        console.error("Error loading jobs:", err);
+    }
+}
+
+function populateDepartments() {
+
+    deptSelect.innerHTML = `<option value="">All Departments</option>`;
+
+    const departments = [
+        ...new Set(
+            jobs.flatMap(job =>
+                (job.departments || []).map(dep => dep.name)
+            )
+        )
+    ].sort();
+
+    departments.forEach(dep => {
+
+        const option = document.createElement("option");
+        option.value = dep;
+        option.textContent = dep;
+
+        deptSelect.appendChild(option);
+
+    });
+
+}
+
+function populateOffices() {
+
+    officeSelect.innerHTML = `<option value="">All Offices</option>`;
+
+    const offices = [
+        ...new Set(
+            jobs.flatMap(job =>
+                (job.offices || []).map(office => office.name)
+            )
+        )
+    ].sort();
+
+    offices.forEach(office => {
+
+        const option = document.createElement("option");
+        option.value = office;
+        option.textContent = office;
+
+        officeSelect.appendChild(option);
+
+    });
+
+}
+
+function renderJobs(list) {
+
+    jobList.innerHTML = "";
+
+    count.textContent = list.length;
+
+    // No jobs found
+    if (list.length === 0) {
+
+        empty.hidden = false;
+        return; // Yahin function stop ho jayega
+
+    }
+
+    // Jobs found
+    empty.hidden = true;
+
+    list.forEach(job => {
+
+        const department =
+            (job.departments || []).map(d => d.name).join(", ");
+
+        const location =
+            job.location?.name || "";
+
+        jobList.insertAdjacentHTML("beforeend", `
+<a class="job" href="${job.absolute_url}" target="_blank">
+
+    <span class="job-mark">
+        <img src="assets/logo-shell-dark.png" alt="">
+    </span>
+
+    <span class="job-main">
+
+        <span class="job-row">
+
+            <span>
+
+                <h3>${job.title}</h3>
+
+<span class="chips">
+    <span class="chip chip-dept">${department}</span>
+    <span class="chip chip-onsite">On-site</span>
+    ${job.isNew ? '<span class="chip chip-new">Recently posted</span>' : ''}
+</span>
+
+            </span>
+
+            <span class="job-meta">
+
+                <span class="job-loc">${location}</span>
+
+                <span class="btn-apply">
+                    Apply
+                </span>
+
+            </span>
+
+        </span>
+
+    </span>
+
+</a>
+        `);
+
+    });
+
+}
+
+function filterJobs() {
+
+   const keyword = normalizeText(searchInput.value);
+const keywordWords = keyword.split(" ").filter(Boolean);
+
+    const selectedDepartment = deptSelect.value;
+    const selectedOffice = officeSelect.value;
+
+    const filtered = jobs.filter(job => {
+
+        const departments =
+            (job.departments || []).map(d => d.name);
+
+        const offices =
+            (job.offices || []).map(o => o.name);
+
+        const parser = document.createElement("div");
+        parser.innerHTML = job.content || "";
+
+        const decodedContent =
+            parser.textContent || parser.innerText || "";
+
+       const locationText = normalizeText(
+    job.location?.name || ""
+);
+        const departmentText =
+            departments.join(" ");
+
+        const officeText =
+            offices.join(" ");
+
+const searchData = normalizeText([
+    job.title,
+    //locationText,
+    //departmentText,
+    //officeText,
+	//job.content
+	
+].join(" "));
+const matchesKeyword =
+    keywordWords.length === 0 ||
+    keywordWords.every(word => searchData.includes(word));
+
+        const matchesDepartment =
+            !selectedDepartment ||
+            departments.includes(selectedDepartment);
+
+        const matchesOffice =
+            !selectedOffice ||
+            offices.includes(selectedOffice);
+
+        return (
+            matchesKeyword &&
+            matchesDepartment &&
+            matchesOffice
+        );
+
+    });
+
+    renderJobs(filtered);
+
+}
+
+searchInput.addEventListener("input", filterJobs);
+deptSelect.addEventListener("change", filterJobs);
+officeSelect.addEventListener("change", filterJobs);
+
+loadJobs();
+function normalizeText(text) {
+    return (text || "")
+        .toLowerCase()
+        .replace(/<[^>]*>/g, " ")
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+function isRecent(date) {
+    if (!date) return false;
+
+    const published = new Date(date);
+    const days = (Date.now() - published.getTime()) / 86400000;
+
+    return days <= 30;
+}
+</script>
+</body>
+</html>
